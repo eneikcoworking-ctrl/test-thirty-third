@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campaign Manager - Data Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f7f9fb",
+                    "outline": "#737686",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed": "#360f00",
+                    "background": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "surface-variant": "#e0e3e5",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary": "#943700",
+                    "primary": "#004ac6",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface": "#f7f9fb",
+                    "on-surface-variant": "#434655",
+                    "surface-container": "#eceef0",
+                    "on-tertiary-container": "#ffede6",
+                    "secondary-container": "#d0e1fb",
+                    "on-primary-fixed": "#00174b",
+                    "inverse-surface": "#2d3133",
+                    "on-surface": "#191c1e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "secondary-fixed": "#d3e4fe",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "inverse-on-surface": "#eff1f3",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-tint": "#0053db",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "primary-fixed": "#dbe1ff",
+                    "inverse-primary": "#b4c5ff",
+                    "on-primary-container": "#eeefff",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "primary-container": "#2563eb",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "secondary": "#505f76",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#54647a",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "tertiary-container": "#bc4800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "margin-mobile": "16px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "gutter-mobile": "12px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "display-sm": ["Inter"],
+                    "code-sm": ["JetBrains Mono"],
+                    "headline-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-sm": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "code-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .upload-dashed {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23C3C6D7' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+        .scroll-hide::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface border-b border-outline-variant flex items-center justify-between px-md h-[64px] z-50">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-sm rounded-full active:scale-95 duration-150">arrow_back</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Campaign Manager</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">signal_cellular_alt</span>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold">JD</div>
+</div>
+</header>
+<main class="max-w-5xl mx-auto px-margin-mobile py-lg space-y-lg">
+<!-- Header Section -->
+<section class="space-y-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Data Upload Portal</h2>
+<p class="text-on-surface-variant font-body-md max-w-2xl">Import your campaign contacts. Ensure your CSV file follows the system requirements to prevent synchronization errors.</p>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Left Column: Upload Area & Requirements -->
+<div class="lg:col-span-2 space-y-lg">
+<!-- Drop Zone -->
+<div class="upload-dashed rounded-xl bg-surface-container-lowest p-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container transition-colors group relative overflow-hidden h-72" id="dropZone">
+<div class="z-10 flex flex-col items-center">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-[32px]">upload_file</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Drop file or tap to upload</h3>
+<p class="text-on-surface-variant font-body-md">CSV or XLSX files up to 25MB</p>
+</div>
+</div>
+<!-- Active Upload (State: Uploading) -->
+<div class="hidden bg-surface-container-lowest border border-outline-variant p-md rounded-xl space-y-md animate-in fade-in duration-500" id="uploadProgress">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">campaign_leads_q4_v2.csv</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">4.2 MB of 12.8 MB</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors">close</button>
+</div>
+<div class="space-y-xs">
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/3 rounded-full animate-[progress_2s_ease-in-out_infinite]"></div>
+</div>
+<div class="flex justify-between">
+<span class="text-xs text-on-surface-variant">Uploading...</span>
+<span class="text-xs font-bold text-primary">32%</span>
+</div>
+</div>
+</div>
+<!-- Map Columns Section (Initially Hidden, Shown via JS) -->
+<section class="hidden bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden animate-in slide-in-from-bottom-4 duration-500" id="mappingSection">
+<div class="p-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Map Columns</h3>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-sm py-1 rounded-full">6 COLUMNS DETECTED</span>
+</div>
+<div class="p-md space-y-md">
+<p class="text-on-surface-variant font-body-md italic mb-md">Verify the auto-detected mapping and correct as needed.</p>
+<div class="grid grid-cols-2 gap-md text-label-md font-label-md text-outline-variant uppercase tracking-widest pb-sm border-b border-outline-variant">
+<div>CSV Header</div>
+<div>System Field</div>
+</div>
+<div class="space-y-sm">
+<!-- Mapping Row -->
+<div class="grid grid-cols-2 gap-md items-center group">
+<div class="font-code-sm text-code-sm bg-surface-container px-sm py-2 rounded">first_name</div>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option>First Name</option>
+<option>Last Name</option>
+<option>Email Address</option>
+</select>
+</div>
+<!-- Mapping Row -->
+<div class="grid grid-cols-2 gap-md items-center group">
+<div class="font-code-sm text-code-sm bg-surface-container px-sm py-2 rounded">email_primary</div>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option>Email Address</option>
+<option>First Name</option>
+<option>Last Name</option>
+</select>
+</div>
+<!-- Mapping Row -->
+<div class="grid grid-cols-2 gap-md items-center group">
+<div class="font-code-sm text-code-sm bg-surface-container px-sm py-2 rounded">lead_score_2023</div>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all italic text-outline">
+<option>Ignore this column</option>
+<option>Lead Score</option>
+<option>Custom Attribute</option>
+</select>
+</div>
+</div>
+<div class="pt-md flex justify-end gap-sm">
+<button class="px-lg py-md text-on-surface-variant font-label-md hover:bg-surface-container-low transition-colors rounded-lg" onclick="resetPortal()">Cancel</button>
+<button class="px-xl py-md bg-primary text-on-primary font-label-md rounded-lg shadow-sm active:scale-95 transition-transform">Complete Import</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Requirements & Status -->
+<div class="space-y-lg">
+<div class="bg-surface-container border border-outline-variant p-md rounded-xl space-y-md">
+<h4 class="font-label-md text-label-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                        FILE REQUIREMENTS
+                    </h4>
+<ul class="space-y-sm">
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<div>
+<p class="text-body-md font-bold text-on-surface">CSV Format</p>
+<p class="text-[12px] text-on-surface-variant">UTF-8 encoded standard comma separated values.</p>
+</div>
+</li>
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<div>
+<p class="text-body-md font-bold text-on-surface">Mandatory Headers</p>
+<p class="text-[12px] text-on-surface-variant">Must include 'Email' or 'Phone' column for identification.</p>
+</div>
+</li>
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-outline-variant text-[18px] mt-0.5">info</span>
+<div>
+<p class="text-body-md font-bold text-on-surface">Row Limit</p>
+<p class="text-[12px] text-on-surface-variant">Max 50,000 rows per individual upload.</p>
+</div>
+</li>
+</ul>
+<div class="pt-sm">
+<button class="w-full flex items-center justify-center gap-sm p-sm border border-outline-variant rounded-lg text-body-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">download</span>
+                            Download Template
+                        </button>
+</div>
+</div>
+<!-- Recent Activity Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl">
+<h4 class="font-label-md text-label-md text-on-surface mb-md">RECENT IMPORTS</h4>
+<div class="space-y-md">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">leads_may.csv</p>
+<p class="text-[10px] text-on-surface-variant">Yesterday, 4:12 PM</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors cursor-pointer">chevron_right</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<div>
+<p class="text-body-md font-bold text-on-surface">re-engagement.csv</p>
+<p class="text-[10px] text-on-surface-variant">Oct 24, 2023</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors cursor-pointer">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-lg py-sm pb-safe bg-surface border-t border-outline-variant z-50">
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-label-md text-label-md">Campaigns</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</button>
+</nav>
+<script>
+        const dropZone = document.getElementById('dropZone');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const mappingSection = document.getElementById('mappingSection');
+
+        dropZone.addEventListener('click', () => {
+            // Simulate file selection
+            dropZone.classList.add('opacity-50', 'pointer-events-none');
+            uploadProgress.classList.remove('hidden');
+            
+            setTimeout(() => {
+                uploadProgress.classList.add('hidden');
+                mappingSection.classList.remove('hidden');
+            }, 3000);
+        });
+
+        function resetPortal() {
+            dropZone.classList.remove('opacity-50', 'pointer-events-none');
+            uploadProgress.classList.add('hidden');
+            mappingSection.classList.add('hidden');
+        }
+
+        // Drop animation logic
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('bg-surface-container-high');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('bg-surface-container-high');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('bg-surface-container-high');
+            dropZone.click(); // Trigger same sim logic
+        });
+    </script>
+<style>
+        @keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(300%); }
+        }
+    </style>
+</body></html>
