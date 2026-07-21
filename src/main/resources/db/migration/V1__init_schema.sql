@@ -33,18 +33,14 @@ CREATE TABLE messages (
     CONSTRAINT fk_message_dialog FOREIGN KEY (dialog_id) REFERENCES dialogs(id) ON DELETE CASCADE
 );
 
--- Optimized indexes
+-- Optimized indexes for fast lookup and unread counts
 CREATE INDEX idx_dialogs_active_status ON dialogs (is_active, status);
 CREATE INDEX idx_messages_unread_lookup ON messages (is_unread, created_at DESC);
-CREATE INDEX idx_messages_dialog_unread ON messages (dialog_id, is_unread, created_at DESC);
+CREATE INDEX idx_messages_dialog_unread ON messages (dialog_id, is_unread);
+CREATE INDEX idx_messages_dialog_latest ON messages (dialog_id, created_at DESC, id DESC);
 
--- Optimized database view
+-- Optimized database view using correlated subqueries for optimal query execution plan with indexes
 CREATE VIEW v_active_dialogs AS
-WITH latest_msgs AS (
-    SELECT dialog_id, text, created_at,
-           ROW_NUMBER() OVER (PARTITION BY dialog_id ORDER BY created_at DESC, id DESC) as rn
-    FROM messages
-)
 SELECT
     d.id AS dialog_id,
     d.telegram_account_id,
@@ -55,13 +51,24 @@ SELECT
     d.is_active,
     d.created_at,
     d.updated_at,
-    COALESCE((
+    (
         SELECT COUNT(*)
         FROM messages m
         WHERE m.dialog_id = d.id AND m.is_unread = true
-    ), 0) AS unread_count,
-    lm.text AS latest_message_text,
-    lm.created_at AS latest_message_time
+    ) AS unread_count,
+    (
+        SELECT m.text
+        FROM messages m
+        WHERE m.dialog_id = d.id
+        ORDER BY m.created_at DESC, m.id DESC
+        LIMIT 1
+    ) AS latest_message_text,
+    (
+        SELECT m.created_at
+        FROM messages m
+        WHERE m.dialog_id = d.id
+        ORDER BY m.created_at DESC, m.id DESC
+        LIMIT 1
+    ) AS latest_message_time
 FROM dialogs d
-LEFT JOIN latest_msgs lm ON d.id = lm.dialog_id AND lm.rn = 1
 WHERE d.is_active = true;

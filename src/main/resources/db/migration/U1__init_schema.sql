@@ -1,4 +1,5 @@
 DROP VIEW IF EXISTS v_active_dialogs;
+DROP INDEX IF EXISTS idx_messages_dialog_latest;
 DROP INDEX IF EXISTS idx_messages_dialog_unread;
 DROP INDEX IF EXISTS idx_messages_unread_lookup;
 DROP INDEX IF EXISTS idx_dialogs_active_status;
