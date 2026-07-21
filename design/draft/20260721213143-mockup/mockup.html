@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Outreach Health Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#00714d",
+                    "primary-container": "#2e42a1",
+                    "outline": "#757683",
+                    "on-primary-fixed": "#001159",
+                    "outline-variant": "#c5c5d4",
+                    "surface-tint": "#4356b6",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-fixed-variant": "#005236",
+                    "primary-fixed": "#dee1ff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-surface": "#0b1c30",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-fixed": "#002113",
+                    "surface": "#f8f9ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-bright": "#f8f9ff",
+                    "primary": "#10298a",
+                    "secondary": "#006c49",
+                    "surface-container-low": "#eff4ff",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface-variant": "#454652",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f8f9ff",
+                    "on-primary-fixed-variant": "#293d9c",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#ffa929",
+                    "on-primary-container": "#abb7ff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#6b4200",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#bac3ff",
+                    "tertiary-fixed": "#ffddb8",
+                    "inverse-surface": "#213145",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#bac3ff",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary": "#4c2e00",
+                    "surface-dim": "#cbdbf5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "32px",
+                    "container-max": "1440px",
+                    "base": "4px",
+                    "gutter": "20px",
+                    "md": "24px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "xs": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "mono-data": ["Geist"],
+                    "display": ["Inter"],
+                    "label-md": ["Geist"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "mono-data": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .gauge-animation {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            animation: progress 1.5s ease-out forwards;
+        }
+        @keyframes progress {
+            to { stroke-dashoffset: 30.14; } /* 88/100 offset calculation: 251.2 * (1 - 0.88) */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-surface border-b border-outline-variant dark:border-outline w-full top-0 sticky z-40">
+<div class="flex items-center justify-between px-md py-xs w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-xs transition-colors duration-200 active:scale-95 text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined text-headline-md" data-icon="security">security</span>
+<h1 class="font-headline-md text-headline-md font-bold">Outreach Health</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim transition-colors duration-200 active:scale-95 p-xs rounded-full hover:bg-surface-container dark:hover:bg-inverse-surface" data-icon="notifications">
+                notifications
+            </button>
+</div>
+</header>
+<main class="pb-32 px-gutter pt-md max-w-container-max mx-auto">
+<!-- Fleet Health Hero -->
+<section class="mb-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between shadow-sm">
+<div class="space-y-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Fleet Health</h2>
+<p class="font-body-sm text-on-surface-variant max-w-[200px]">Overall performance across all connected outreach accounts.</p>
+<div class="flex items-center gap-xs text-secondary font-label-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+<span>+4% from last week</span>
+</div>
+</div>
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary gauge-animation" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display text-headline-lg text-primary leading-none">88</span>
+<span class="font-label-md text-on-surface-variant text-[10px]">/100</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Status Summaries (Horizontal Scroll) -->
+<section class="mb-lg -mx-gutter px-gutter overflow-x-auto hide-scrollbar">
+<div class="flex gap-sm pb-xs">
+<!-- Healthy Card -->
+<div class="min-w-[140px] bg-secondary-container rounded-lg p-sm border border-secondary/20 transition-all active:scale-95">
+<div class="flex items-center justify-between mb-xs">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="check_circle">check_circle</span>
+<span class="font-headline-md text-on-secondary-container">12</span>
+</div>
+<span class="font-label-md text-on-secondary-container">Healthy</span>
+</div>
+<!-- Warming Up Card -->
+<div class="min-w-[140px] bg-surface-container rounded-lg p-sm border border-outline-variant transition-all active:scale-95">
+<div class="flex items-center justify-between mb-xs">
+<span class="material-symbols-outlined text-tertiary" data-icon="bolt">bolt</span>
+<span class="font-headline-md text-on-surface">3</span>
+</div>
+<span class="font-label-md text-on-surface-variant">Warming Up</span>
+</div>
+<!-- At Risk Card -->
+<div class="min-w-[140px] bg-error-container rounded-lg p-sm border border-error/20 transition-all active:scale-95">
+<div class="flex items-center justify-between mb-xs">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<span class="font-headline-md text-on-error-container">1</span>
+</div>
+<span class="font-label-md text-on-error-container">At Risk</span>
+</div>
+</div>
+</section>
+<!-- Account List -->
+<section class="space-y-sm">
+<div class="flex items-center justify-between mb-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface">Accounts</h3>
+<button class="text-primary font-label-md flex items-center gap-xs">
+                    View All <span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Card 1: Healthy -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-sm flex flex-col gap-sm shadow-sm transition-all hover:border-primary/30">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional corporate headshot of a businessperson for a digital health profile avatar, set against a clean, minimal light blue-grey background, captured with soft professional studio lighting to ensure a high-trust professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF0zlh9YQhzwU3eoSfiRJDF6j2WlhqSbPg-FjS3EBBvy1413_jDCWCJbN0YZKLypCr3rg_6vWpiW4AOcLy4p2pGJzhfKFfUxSh-FrUnC0UrMsx0VakMut2HNlWrtN6ZtNB3dSB_YeJ7Lpoap6NonK9cAbHiknq3zb5VJy9uSLzeJ0cDq6VKZPjwj_44ihKphhxxOu5W21nbpbKbZiG7sZIQmj2YOy8-pNO00Ly6OPdZnyrM1NuUxxv4KDDkLFXNuQpaTxdEeBN2wk"/>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface">john.d@company.com</p>
+<div class="flex items-center gap-xs mt-[2px]">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-md text-secondary">Healthy</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</button>
+</div>
+<div class="flex items-end justify-between border-t border-outline-variant pt-sm">
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-on-surface-variant uppercase text-[10px] tracking-wider">Activity (7d)</span>
+<div class="w-24 h-8">
+<!-- Simple SVG Sparkline -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 30">
+<path d="M0 25 Q 10 10, 20 20 T 40 15 T 60 25 T 80 5 T 100 15" fill="none" stroke="#006c49" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-on-surface-variant text-[10px] uppercase">Risk Level</span>
+<p class="font-body-md font-medium text-secondary">Low</p>
+</div>
+</div>
+</div>
+<!-- Card 2: Warning -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-sm flex flex-col gap-sm shadow-sm transition-all hover:border-primary/30">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimal and clean avatar illustration of a professional woman wearing business attire, designed for a modern UI interface. The lighting is soft and even, against a neutral light-mode background, maintaining a high-density professional and authoritative design vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8oVtR2Lc5bTClNDqEWisQfB2aipLwQzqNSAXBUQz4_FoWxM4qyREnDULCuyz-9o6iHllICtqXDqTcpGk9DCnZ1BjGerZHNVcNJiXQB6e9LadjhMu-iQcNKJMgRlxgBBcBo3zFOy3oUD5ZZQB4M6bu1427a5x3FKHeCmJw-3sFnXbidJ6if0gKWSFiKms-rjXqw-EaEhjOJKfBE7_dCIs88Fru59VT-z81F009bju0j3kFMWZxluMGm2w1k9cwilKi2eMfOT2q_0E"/>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface">sarah.m@techflow.io</p>
+<div class="flex items-center gap-xs mt-[2px]">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span class="font-label-md text-tertiary-container">Warning</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</button>
+</div>
+<div class="flex items-end justify-between border-t border-outline-variant pt-sm">
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-on-surface-variant uppercase text-[10px] tracking-wider">Activity (7d)</span>
+<div class="w-24 h-8">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 30">
+<path d="M0 5 L 20 25 L 40 10 L 60 28 L 80 15 L 100 25" fill="none" stroke="#4c2e00" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-on-surface-variant text-[10px] uppercase">Risk Level</span>
+<p class="font-body-md font-medium text-tertiary">Medium</p>
+</div>
+</div>
+</div>
+<!-- Card 3: Paused -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-sm flex flex-col gap-sm shadow-sm opacity-80">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden grayscale">
+<img class="w-full h-full object-cover" data-alt="A high-quality business portrait for a user profile, featuring a man in professional clothing. The background is a clean, minimalist office environment with very soft out-of-focus elements, adhering to a corporate modern aesthetic with white space and cool tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbeDTWOznsE4OSJI1ULtBKXztskMCS43MmJA2Z2cqCUmx3_tDw8xQaCW2PmnsVXwWSAIj-0L29SDBWxGfYYyKCcjUby6K4rVFb0uzBcs8cKcfPihzzvf67ndVxrKHtN3xO2s-Jhk-DjIxqevGD8bhWJ_f8vIdmg-kwG5Dhex2sacKI5Z1EDPtM3cgqWP9gGVkTmfQq3llGjFzwAyPcnFM66M0u_xaWdnpXD1y3FkOxnP83mjNxMVUaGsv28T0Np2XGAAXWsIVVSMU"/>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface">admin@globalreach.net</p>
+<div class="flex items-center gap-xs mt-[2px]">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-md text-on-surface-variant">Paused</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</button>
+</div>
+<div class="flex items-end justify-between border-t border-outline-variant pt-sm">
+<div class="flex flex-col gap-xs">
+<span class="font-label-md text-on-surface-variant uppercase text-[10px] tracking-wider">Activity (7d)</span>
+<div class="w-24 h-8">
+<svg class="w-full h-full overflow-visible opacity-30" viewbox="0 0 100 30">
+<line stroke="#757683" stroke-width="2" x1="0" x2="100" y1="15" y2="15"></line>
+</svg>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-on-surface-variant text-[10px] uppercase">Risk Level</span>
+<p class="font-body-md font-medium text-on-surface-variant">Inactive</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-gutter w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center transition-transform duration-300 active:scale-90 z-50">
+<span class="material-symbols-outlined text-[32px]" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-on-surface border-t border-outline-variant dark:border-outline flex justify-around items-center px-gutter py-xs">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-sm py-xs transition-all duration-300 ease-in-out active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-sm py-xs transition-all duration-300 ease-in-out active:scale-90 hover:text-primary dark:hover:text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="supervised_user_circle">supervised_user_circle</span>
+<span class="font-label-md text-label-md">Accounts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-sm py-xs transition-all duration-300 ease-in-out active:scale-90 hover:text-primary dark:hover:text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-sm py-xs transition-all duration-300 ease-in-out active:scale-90 hover:text-primary dark:hover:text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: FAB elevation on scroll
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('.fixed.bottom-24');
+            if (window.scrollY > 20) {
+                fab.classList.add('shadow-xl');
+            } else {
+                fab.classList.remove('shadow-xl');
+            }
+        });
+
+        // Simulating tap feedback on cards
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+            card.addEventListener('touchstart', () => card.style.transform = 'scale(0.98)');
+            card.addEventListener('touchend', () => card.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>
