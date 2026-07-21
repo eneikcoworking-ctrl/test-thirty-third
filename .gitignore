@@ -1,2 +1,21 @@
 # Eneik orchestrator internal record files - never part of product code
 .eneik/
+
+# Maven target directory
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+bin/
+
+# OS files
+.DS_Store
+Thumbs.db
