@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>StabilityMonitor - Account Health</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#0f4c81",
+                    "surface-container": "#e8eeff",
+                    "on-tertiary-container": "#b4bbc2",
+                    "secondary-fixed": "#d8e3fa",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e3e8f9",
+                    "on-primary-container": "#8ebdf9",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#161c22",
+                    "surface-container-low": "#f1f3ff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#bcc7dd",
+                    "surface": "#f9f9ff",
+                    "tertiary": "#2e343a",
+                    "tertiary-fixed": "#dde3eb",
+                    "on-secondary-container": "#586377",
+                    "primary-fixed-dim": "#a0c9ff",
+                    "primary-fixed": "#d2e4ff",
+                    "surface-tint": "#2d6197",
+                    "on-tertiary-fixed-variant": "#41474e",
+                    "inverse-primary": "#a0c9ff",
+                    "on-surface-variant": "#42474f",
+                    "primary": "#00355f",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "outline-variant": "#c2c7d1",
+                    "surface-dim": "#d4daea",
+                    "tertiary-fixed-dim": "#c1c7cf",
+                    "tertiary-container": "#444b51",
+                    "background": "#f9f9ff",
+                    "on-primary-fixed-variant": "#07497d",
+                    "on-error": "#ffffff",
+                    "outline": "#727780",
+                    "surface-container-highest": "#dde2f3",
+                    "surface-bright": "#f9f9ff",
+                    "on-background": "#161c27",
+                    "surface-variant": "#dde2f3",
+                    "secondary-container": "#d5e0f7",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#001c37",
+                    "inverse-on-surface": "#ecf0ff",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2a303d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#545f72",
+                    "on-surface": "#161c27",
+                    "on-secondary-fixed": "#111c2c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "48px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "data-mono": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "data-mono": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .status-success-border { border-left: 4px solid #10b981; }
+        .status-warning-border { border-left: 4px solid #f59e0b; }
+        .status-error-border { border-left: 4px solid #ba1a1a; }
+        
+        @keyframes ring-fill {
+            from { stroke-dashoffset: 251.2; }
+            to { stroke-dashoffset: 15.07; } /* 94% of 251.2 */
+        }
+        .animate-ring { stroke-dasharray: 251.2; animation: ring-fill 1.5s ease-out forwards; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-14 w-full bg-surface border-b border-outline-variant transition-colors duration-200">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary-container">Account Stability</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors text-primary">
+<span class="material-symbols-outlined">add</span>
+</button>
+</header>
+<main class="pt-20 px-margin-mobile flex flex-col gap-lg max-w-md mx-auto">
+<!-- Global Health Overview (Bento Style Hero) -->
+<section class="relative overflow-hidden bg-white rounded-xl p-lg border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-md relative z-10">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-xs">Aggregate Health</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">94% Stability</h2>
+</div>
+<div class="relative w-20 h-20">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary animate-ring" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-dashoffset="251.2" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-label-md text-label-md text-primary-container">High</span>
+</div>
+</div>
+</div>
+<div class="bento-grid relative z-10">
+<div class="bg-surface-container-low p-md rounded-lg">
+<p class="font-label-sm text-label-sm text-outline mb-1">Active</p>
+<p class="font-headline-sm text-headline-sm text-primary">124</p>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg">
+<p class="font-label-sm text-label-sm text-outline mb-1">At Risk</p>
+<p class="font-headline-sm text-headline-sm text-error">08</p>
+</div>
+</div>
+<!-- Atmospheric Glass Effect Decor -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary-container opacity-5 rounded-full blur-3xl"></div>
+</section>
+<!-- Account List Section -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-background">Monitored Accounts</h3>
+<span class="font-label-sm text-label-sm text-outline">132 total</span>
+</div>
+<!-- Account Card 1 (Stable) -->
+<div class="bg-white p-md rounded-lg border border-outline-variant status-success-border flex flex-col gap-sm shadow-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Alpha-X Premium</span>
+<span class="font-label-sm text-label-sm text-outline">ID: 88291-K</span>
+</div>
+<span class="px-2 py-1 bg-green-50 text-green-700 font-label-sm text-label-sm rounded-full flex items-center gap-1 uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Stable
+                    </span>
+</div>
+<div class="mt-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Outreach Capacity</span>
+<span class="text-primary font-bold">482/500 daily</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 96.4%"></div>
+</div>
+</div>
+</div>
+<!-- Account Card 2 (Warning) -->
+<div class="bg-white p-md rounded-lg border border-outline-variant status-warning-border flex flex-col gap-sm shadow-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Global_Sync_Main</span>
+<span class="font-label-sm text-label-sm text-outline">ID: 44102-L</span>
+</div>
+<span class="px-2 py-1 bg-amber-50 text-amber-700 font-label-sm text-label-sm rounded-full flex items-center gap-1 uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                        Warning
+                    </span>
+</div>
+<div class="mt-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Outreach Capacity</span>
+<span class="text-amber-700 font-bold">210/500 daily</span>
+</div>
+<div class="h-2 w-full bg-amber-100 rounded-full overflow-hidden">
+<div class="h-full bg-amber-500" style="width: 42%"></div>
+</div>
+</div>
+</div>
+<!-- Account Card 3 (Critical) -->
+<div class="bg-white p-md rounded-lg border border-outline-variant status-error-border flex flex-col gap-sm shadow-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">User_Sentinel_01</span>
+<span class="font-label-sm text-label-sm text-outline">ID: 11928-X</span>
+</div>
+<span class="px-2 py-1 bg-red-50 text-error font-label-sm text-label-sm rounded-full flex items-center gap-1 uppercase tracking-tighter">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">dangerous</span>
+                        Critical
+                    </span>
+</div>
+<div class="mt-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Outreach Capacity</span>
+<span class="text-error font-bold">12/500 daily</span>
+</div>
+<div class="h-2 w-full bg-error-container rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 2.4%"></div>
+</div>
+</div>
+</div>
+<!-- More Accounts Card (Visual Filler) -->
+<button class="bg-surface-container-low border border-dashed border-outline-variant p-lg rounded-lg flex items-center justify-center gap-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">expand_more</span>
+<span class="font-label-md text-label-md">View 129 More Accounts</span>
+</button>
+</section>
+<!-- CTA Space -->
+<div class="py-md text-center">
+<p class="font-body-sm text-body-sm text-outline italic">Last sync: 2 minutes ago</p>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center z-40 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-2 pb-safe bg-surface-container shadow-sm">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">tune</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for account cards
+        document.querySelectorAll('.status-success-border, .status-warning-border, .status-error-border').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>
