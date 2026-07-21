@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Configurator - System Prompt Editor</title>
+<!-- Google Fonts: Inter for UI, JetBrains Mono for Technical/Code elements -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#bec6e0",
+                    "tertiary-container": "#4e566c",
+                    "on-secondary-container": "#54647a",
+                    "outline-variant": "#c5c5d7",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-high": "#e6e8ea",
+                    "on-primary-fixed": "#000d60",
+                    "outline": "#757686",
+                    "error": "#ba1a1a",
+                    "inverse-surface": "#2d3133",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#374ddc",
+                    "background": "#f7f9fb",
+                    "inverse-primary": "#bcc3ff",
+                    "on-primary-container": "#c4c9ff",
+                    "on-tertiary-fixed-variant": "#3f465c",
+                    "tertiary": "#373f54",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#1630c4",
+                    "primary-container": "#2e44d4",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "secondary": "#505f76",
+                    "surface-variant": "#e0e3e5",
+                    "primary": "#0425be",
+                    "on-surface": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-fixed": "#131b2e",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed": "#dfe0ff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "secondary-container": "#d0e1fb",
+                    "surface-container": "#eceef0",
+                    "on-tertiary-container": "#c4cce6",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "on-surface-variant": "#444655",
+                    "primary-fixed-dim": "#bcc3ff",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "2xl": "48px",
+                    "margin-mobile": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px",
+                    "md": "16px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .auto-expand {
+            min-height: 400px;
+            overflow: hidden;
+            resize: none;
+        }
+        /* Custom scrollbar for technical density look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-20 md:pb-0 md:pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background border-b border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary font-headline-md text-headline-md">settings_suggest</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">AI Configurator</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg font-label-md text-label-md">
+<span class="material-symbols-outlined">help_outline</span>
+                Documentation
+            </button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">
+                JD
+            </div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop py-lg md:py-xl">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden md:flex md:col-span-3 flex-col gap-sm">
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-md text-label-md">Prompts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">rule</span>
+<span class="font-label-md text-label-md">Rules</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="font-label-md text-label-md">Test</span>
+</a>
+</nav>
+<div class="mt-xl p-lg bg-surface-container-low border border-outline-variant rounded-xl">
+<h4 class="font-label-md text-label-md text-primary mb-2">Editor Tip</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Use <code class="bg-surface-variant px-1 rounded">{Variable}</code> syntax to inject real-time data into your prompt logic.
+                </p>
+</div>
+</aside>
+<!-- Editor Core Section -->
+<section class="col-span-1 md:col-span-9">
+<div class="flex flex-col gap-lg">
+<!-- Header Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">System Prompt</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Define the foundational behavior and personality of your AI agent.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="px-6 py-2 border border-outline text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-all active:scale-95">
+                            Reset to Default
+                        </button>
+<button class="px-6 py-2 bg-primary-container text-white rounded-lg font-label-md text-label-md hover:brightness-110 shadow-sm transition-all active:scale-95">
+                            Save Changes
+                        </button>
+</div>
+</div>
+<!-- Dynamic Variables Toolbar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md">
+<div class="flex flex-wrap items-center gap-sm">
+<span class="font-label-sm text-label-sm text-outline flex items-center gap-1 mr-2">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+                            TAP TO INSERT:
+                        </span>
+<button class="px-3 py-1.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full hover:brightness-95 transition-all border border-outline-variant" onclick="insertVariable('{Lead_Name}')">
+                            {Lead_Name}
+                        </button>
+<button class="px-3 py-1.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full hover:brightness-95 transition-all border border-outline-variant" onclick="insertVariable('{Company_Profile}')">
+                            {Company_Profile}
+                        </button>
+<button class="px-3 py-1.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full hover:brightness-95 transition-all border border-outline-variant" onclick="insertVariable('{Inquiry_Details}')">
+                            {Inquiry_Details}
+                        </button>
+<button class="px-3 py-1.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full hover:brightness-95 transition-all border border-outline-variant" onclick="insertVariable('{Context_Date}')">
+                            {Context_Date}
+                        </button>
+<button class="px-3 py-1.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full hover:brightness-95 transition-all border border-outline-variant" onclick="insertVariable('{Product_List}')">
+                            {Product_List}
+                        </button>
+</div>
+</div>
+<!-- Text Area Editor -->
+<div class="relative group">
+<textarea class="auto-expand w-full font-label-md text-label-md text-on-surface bg-surface-container-lowest border-2 border-outline-variant rounded-xl p-lg focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all outline-none" id="systemPrompt" placeholder="Enter system prompt here..."></textarea>
+<!-- Floating Indicator -->
+<div class="absolute bottom-4 right-4 flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-[12px] font-label-sm">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            Live Sync Active
+                        </div>
+</div>
+</div>
+<!-- Guidance/Bento Grid Extras -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-surface-container-low p-lg border border-outline-variant rounded-xl flex gap-md">
+<div class="w-12 h-12 bg-primary-container/10 rounded-lg flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-1">AI Best Practices</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                                Use explicit constraints. Phrases like "Do not deviate from the topic" or "Keep responses under 50 words" improve reliability drastically.
+                            </p>
+</div>
+</div>
+<div class="bg-surface-container-low p-lg border border-outline-variant rounded-xl flex gap-md">
+<div class="w-12 h-12 bg-tertiary-container/10 rounded-lg flex items-center justify-center text-tertiary-container shrink-0">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-1">Recent Version</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                                Last saved: <span class="font-medium">Oct 24, 2023 - 14:32 PM</span> by Jerome D.
+                                <a class="block mt-1 text-primary hover:underline" href="#">View version history</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant flex justify-around items-center h-20 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform duration-150 scale-95" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-sm text-label-sm">Prompts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">rule</span>
+<span class="font-label-sm text-label-sm">Rules</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="font-label-sm text-label-sm">Test</span>
+</a>
+</nav>
+<script>
+        const textarea = document.getElementById('systemPrompt');
+        
+        // Initial content
+        textarea.value = "You are a professional enterprise assistant focused on lead management. Your goal is to parse {Inquiry_Details} and provide a summary for {Lead_Name}. \n\nMaintain a tone that is:\n- Technical and precise\n- Courteous but concise\n- Solutions-oriented\n\nEnsure that you reference the specific details from {Company_Profile} in every outbound draft.";
+
+        // Auto-expand logic
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Insert variable at cursor position
+        function insertVariable(variable) {
+            const startPos = textarea.selectionStart;
+            const endPos = textarea.selectionEnd;
+            const text = textarea.value;
+            textarea.value = text.substring(0, startPos) + variable + text.substring(endPos, text.length);
+            
+            // Move cursor after the inserted variable
+            textarea.selectionStart = textarea.selectionEnd = startPos + variable.length;
+            textarea.focus();
+            
+            // Trigger height adjustment
+            textarea.style.height = 'auto';
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        }
+
+        // Initialize height
+        window.onload = () => {
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        };
+    </script>
+</body></html>
