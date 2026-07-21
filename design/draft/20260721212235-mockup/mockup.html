@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737685",
+                    "background": "#f8f9fb",
+                    "surface-container-low": "#f3f4f6",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c3c6d6",
+                    "on-tertiary-fixed-variant": "#624000",
+                    "on-secondary-fixed": "#002113",
+                    "on-surface": "#191c1e",
+                    "surface-dim": "#d9dadc",
+                    "tertiary-fixed-dim": "#ffb950",
+                    "primary-container": "#0052cc",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-container": "#82f9be",
+                    "on-secondary-container": "#00734c",
+                    "tertiary": "#5e3c00",
+                    "tertiary-fixed": "#ffddb3",
+                    "on-primary-fixed": "#001848",
+                    "on-tertiary-container": "#ffca81",
+                    "error-container": "#ffdad6",
+                    "surface": "#f8f9fb",
+                    "on-secondary-fixed-variant": "#005235",
+                    "inverse-on-surface": "#f0f1f3",
+                    "tertiary-container": "#7d5200",
+                    "surface-container-highest": "#e1e2e4",
+                    "surface-container": "#edeef0",
+                    "primary-fixed": "#dae2ff",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#291800",
+                    "secondary": "#006c47",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#003d9b",
+                    "secondary-fixed": "#82f9be",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#b2c5ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "surface-tint": "#0c56d0",
+                    "surface-variant": "#e1e2e4",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e7e8ea",
+                    "inverse-surface": "#2e3132",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#65dca4",
+                    "on-surface-variant": "#434654",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "margin-desktop": "32px",
+                    "xl": "32px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md-mobile": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #f8f9fb 0%, #edeef0 100%);
+        }
+        .lead-card-hover {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .lead-card-hover:active {
+            transform: scale(0.98);
+            background-color: #f3f4f6;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface border-b border-outline-variant flex justify-between items-center px-md py-sm z-40 transition-colors duration-200">
+<div class="flex items-center gap-sm">
+<div class="relative">
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed-dim object-cover" data-alt="A professional headshot of a corporate sales operator with a friendly expression. The person is wearing a minimalist dark blazer against a clean, light grey studio background. High-quality corporate photography style, soft directional lighting, focused and dependable atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_iL6f3iUecz7q4O7pPmaljNYXoAWSA6Urr06jLrk6z92GANobPDigOC3lgQt7AIOYOJzxyaDZjy3DBH4qDZc4nYmsz1NSfuUH7Bdmu_y7Jgx6Iy5QQdYEmrHH1CU8C96MQkmn_bm5qwD7dnm0BDS0qjyX6EMnRnL98zeyI9MSOQ2uE1a1GYNrkE-kqlUZjp5j2aGMHYpyxC61XZUNZfLsc8Y1geH-353XpwizM4GQM4_7WcS6KNnchyeu1UEpifYrr6vdnoGOSp8"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></span>
+</div>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">Pipeline</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-base hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+<button class="p-base hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 pb-20 overflow-y-auto kinetic-gradient">
+<!-- Dashboard Summary Bar -->
+<div class="px-margin-mobile pt-lg pb-sm">
+<div class="flex justify-between items-end mb-md">
+<div>
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider">Active Stream</p>
+<h2 class="font-headline-sm text-headline-sm-mobile text-on-surface">Inbox</h2>
+</div>
+<div class="flex gap-xs">
+<span class="bg-primary text-on-primary px-sm py-[2px] rounded-full text-[10px] font-bold">12 NEW</span>
+</div>
+</div>
+</div>
+<!-- Chat List -->
+<section class="flex flex-col gap-px bg-outline-variant">
+<!-- Sarah Jenkins (Qualified) -->
+<div class="bg-surface px-margin-mobile py-lg lead-card-hover cursor-pointer flex gap-md">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover grayscale-[20%]" data-alt="A portrait of Sarah Jenkins, a professional woman in a modern office setting. She has a warm smile and is wearing professional attire. The background shows a blurred, high-end office environment with soft bokeh, communicating a qualified lead's status. Soft, natural daylighting and a high-key, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXGtxViQd56p6JZHzcsqYWJN1B9bUGELw5U36pbz1_LRyCGdzgm4g0mxJSFZLWhGCR7D7nTY2YMFAXkZu1b5Bbr_sUuLvpY_qaSQ378ejcNvRs4oL8tiD31krIgA5nZXTuP5fW8NdjAl7a8ni0t027W_VHk5QVrVqzenrz5xtEZmQpHCThMIqu3U9KfyKM5sdX1S77PoQUOlPGdpcwHmMXXjWvIYr2kgEOwuOAN9pdcoW76r2nVpVG9Eq7LoaeQ8fUavi8eGMmmBY"/>
+<span class="absolute top-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full border-2 border-surface shadow-sm" title="Qualified"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Sarah Jenkins</h3>
+<span class="font-label-sm text-label-sm text-outline whitespace-nowrap">2m ago</span>
+</div>
+<div class="flex items-center gap-sm mb-1">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed">QUALIFIED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">That's exactly what I'm looking for. When can we schedule the next demo?</p>
+</div>
+</div>
+<!-- Michael Chen (New) -->
+<div class="bg-surface px-margin-mobile py-lg lead-card-hover cursor-pointer flex gap-md">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A close-up portrait of Michael Chen, a young entrepreneur. He is looking thoughtfully towards the camera in a modern tech hub with minimalist wood and glass details. The lighting is clean and professional, using a cool color palette with primary blue accents in the background to match his 'New' status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnBVkiTAeCxpPTf-804gEAL9yxs6oRhJ893dMLB0Exl-frQTmt9cQVvck-rjsNPGXvdU5pimf0V3c7rXigV-7dFiQ2P0TkmEVtY1gGJhY4TM4ZuYH3y7uEUBwodoyQS6m5MzBKpRJJGtdtpOSUdE_6aWesWoVgXiiP2UvgPAiCa37ZqYxxXm7aHfIchgisug4r4eAg7Uq8qLzm1XHCIlJVStWTRc1qx1WS9LLvy2iHOrYPB2_Bx-ZdGlv0dVvLBZyS0l-M6d1ADT4"/>
+<span class="absolute top-0 right-0 w-3.5 h-3.5 bg-primary-container rounded-full border-2 border-surface shadow-sm" title="New"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Michael Chen</h3>
+<span class="font-label-sm text-label-sm text-outline whitespace-nowrap">4m ago</span>
+</div>
+<div class="flex items-center gap-sm mb-1">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full text-[10px] font-bold bg-primary-fixed text-on-primary-fixed-variant">NEW LEAD</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-semibold truncate italic">"Hello, I just saw your pricing page and I have a few questions about..."</p>
+</div>
+</div>
+<!-- Alex Rivera (Pending) -->
+<div class="bg-surface px-margin-mobile py-lg lead-card-hover cursor-pointer flex gap-md">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A casual yet professional portrait of Alex Rivera in a minimalist workspace. He is wearing a simple polo shirt, and the background features warm amber tones and soft focus plants. The mood is calm and expectant, perfectly aligning with a 'Pending' lead status. Soft, warm indoor lighting with a clean enterprise look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqu2vOA9QxeaXnIQG0GNfKDWuMgm19vHQFSORDHkqJmnMJtIGFAuviPT4fvORjqShU1_cL5r8zEfZR-PnI_AuUCD1KqDGjDn9pL2c7RCLKkf6u14600JymgmGTUyHHF2bYfugZvgnUML9DnnPDqMwbrjokoWnGt7xAsSu6YF_qs-c8obgSZXeen8qI067z1gjh8K1LOHX1TbqhbcFzp8HeGmT6aR7T91TGMxG28kHqcnIwqnilJPtYaA1JnHPU57toMin73WgOk0g"/>
+<span class="absolute top-0 right-0 w-3.5 h-3.5 bg-tertiary-fixed-dim rounded-full border-2 border-surface shadow-sm" title="Pending"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Alex Rivera</h3>
+<span class="font-label-sm text-label-sm text-outline whitespace-nowrap">8m ago</span>
+</div>
+<div class="flex items-center gap-sm mb-1">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">PENDING</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">I'll have to check with my team about the Q3 budget before moving forward.</p>
+</div>
+</div>
+<!-- Emma Wilson -->
+<div class="bg-surface px-margin-mobile py-lg lead-card-hover cursor-pointer flex gap-md">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A portrait of Emma Wilson, a senior executive in a high-rise office building. The background shows city views through a large glass window. The lighting is crisp and business-like, emphasizing a high-value lead profile. Professional corporate modernism aesthetic with cool greys and bright whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnRNl1JJR4UCc8Qzme6z5JmO4UyKBzkdtCMceDGNVf_cdRL7aIRp2AFiFNOHZFZUkY3Xm59azFTIY0Huxre4gu8Yg7SHhQ8vI0sl4eZQnNsPooW-3nQaCJ49DhhdDz9H8hdf27hB0W8WaEe_-VLQq_76jmkyHkJvriiHMsqa52BR6bKrzP4WHc8rY9NBpNgFqmar3fk5gboRAzSDkOmYkS4pIt-N3yoQ6_-AwOuuKKRnNYSvVr8T3cE0Eymjjo4MqGTY2uz5VrIkc"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-1">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Emma Wilson</h3>
+<span class="font-label-sm text-label-sm text-outline whitespace-nowrap">22m ago</span>
+</div>
+<div class="flex items-center gap-sm mb-1">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full text-[10px] font-bold bg-surface-container-highest text-on-surface-variant">DORMANT</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Great meeting today. Please send over the revised proposal when ready.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB (Floating Action Button) - Contextual for Chat -->
+<button class="fixed bottom-20 right-margin-mobile w-14 h-14 bg-primary text-on-primary rounded-xl shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_comment</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant flex justify-around items-center h-16 shadow-lg">
+<!-- Chats (Active) -->
+<a class="flex flex-col items-center justify-center text-primary font-bold transition-all scale-95 duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-md text-label-md">Chats</span>
+</a>
+<!-- Leads -->
+<a class="flex flex-col items-center justify-center text-outline hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Leads</span>
+</a>
+<!-- Calendar -->
+<a class="flex flex-col items-center justify-center text-outline hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-outline hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for list items
+        document.querySelectorAll('.lead-card-hover').forEach(card => {
+            card.addEventListener('click', () => {
+                // Subtle visual feedback
+                card.style.backgroundColor = '#edeef0';
+                setTimeout(() => {
+                    card.style.backgroundColor = '';
+                }, 200);
+            });
+        });
+    </script>
+</body></html>
