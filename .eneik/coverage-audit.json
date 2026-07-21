@@ -1,18 +1,18 @@
 {
   "gaps": [
     {
+      "title": "Telegram Account Session and Proxy Manager",
+      "roleTag": "BARCAN-TAG-02",
+      "jtbd": "When an administrator manages the outbound messaging infrastructure, I want to authenticate Telegram accounts using OTP or session files and route all traffic through isolated proxies, so that we can monitor session health and avoid chain bans.",
+      "acceptanceCriteria": "Given a Svelte dashboard and a Spring Boot backend, When the administrator enters an OTP code or uploads a session file with a dedicated proxy, Then the backend successfully establishes a secure TDLib/Telegram connection and tracks its online/banned status in real time.",
+      "reason": "literal brief requirement: Module 1 (Session Manager), including account authorization (OTP/session upload), individual proxy binding, status-monitor, and anti-fraud simulation, is completely missing from the task list."
+    },
+    {
       "title": "Campaign Management and Spintax Template Engine",
       "roleTag": "BARCAN-TAG-02",
       "jtbd": "When a marketing operator configures an outreach campaign, I want to upload contact lists and define randomized message templates using spintax, so that campaigns can be launched automatically across rotated accounts without triggering signature-based spam filters.",
       "acceptanceCriteria": "Given a campaign CSV/TXT file with contacts and a spintax template, When the operator initiates the campaign, Then the backend parses contacts, generates randomized message variations, and schedules dispatch with appropriate delays.",
       "reason": "literal brief requirement: Module 2 (Campaign Manager) is completely missing from the task list."
-    },
-    {
-      "title": "AI Dialog Engine and Intent-Based Stop-Action Triggers",
-      "roleTag": "BARCAN-TAG-02",
-      "jtbd": "When a prospect replies to an outreach message, I want the LLM Dialog Engine to manage the conversation context and generate responses according to a system prompt, so that hot leads are automatically qualified and the chat is handed over to a human upon stop-action triggers.",
-      "acceptanceCriteria": "Given an incoming message from a lead, When the dialog engine receives the message, Then it stores the conversation context, queries the LLM for a response, and pauses AI replies if stop-actions (e.g., negative/call intent or replica limit) are triggered.",
-      "reason": "literal brief requirement: Module 3 (AI-Ассистент / LLM Dialog Engine) is completely missing from the task list."
     },
     {
       "title": "Unified Live Chat CRM and Manual Control Takeover",
