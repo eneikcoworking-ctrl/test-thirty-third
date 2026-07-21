@@ -1,37 +1,37 @@
 {
   "gaps": [
     {
-      "title": "Campaign Management and Spintax Template Engine",
+      "title": "Telegram Account and Proxy Session Management",
       "roleTag": "BARCAN-TAG-02",
-      "jtbd": "When a marketing operator configures an outreach campaign, I want to upload contact lists and define randomized message templates using spintax, so that campaigns can be launched automatically across rotated accounts without triggering signature-based spam filters.",
-      "acceptanceCriteria": "Given a campaign CSV/TXT file with contacts and a spintax template, When the operator initiates the campaign, Then the backend parses contacts, generates randomized message variations, and schedules dispatch with appropriate delays.",
-      "reason": "literal brief requirement: Module 2 (Campaign Manager) is completely missing from the task list."
+      "jtbd": "When a system administrator manages multiple Telegram outreach accounts, I want to securely authenticate them and assign individual proxies in the admin panel, so that mass IP bans are prevented.",
+      "acceptanceCriteria": "Given an operator on the Session Manager dashboard, When they authenticate a new Telegram account with an OTP or upload a session file, Then the system associates that account with a dedicated IPv4/IPv6 proxy and updates its status to Active.",
+      "reason": "literal brief requirement: Module 1 (Session Manager) for adding accounts, setting proxies, and tracking account status is completely missing from the task list."
     },
     {
-      "title": "AI Dialog Engine and Intent-Based Stop-Action Triggers",
+      "title": "AI Dialog Engine and Stop-Action Triggers",
       "roleTag": "BARCAN-TAG-02",
-      "jtbd": "When a prospect replies to an outreach message, I want the LLM Dialog Engine to manage the conversation context and generate responses according to a system prompt, so that hot leads are automatically qualified and the chat is handed over to a human upon stop-action triggers.",
-      "acceptanceCriteria": "Given an incoming message from a lead, When the dialog engine receives the message, Then it stores the conversation context, queries the LLM for a response, and pauses AI replies if stop-actions (e.g., negative/call intent or replica limit) are triggered.",
+      "jtbd": "When a lead replies to an outreach message, I want the LLM Dialog Engine to automatically handle the conversation context, so that leads are qualified without requiring manual operator intervention.",
+      "acceptanceCriteria": "Given an incoming message from a lead, When the event listener triggers the AI response, Then the system queries the LLM using a configured system prompt and suspends AI responses if stop-actions like intent detection or message limits are met.",
       "reason": "literal brief requirement: Module 3 (AI-Ассистент / LLM Dialog Engine) is completely missing from the task list."
     },
     {
       "title": "Unified Live Chat CRM and Manual Control Takeover",
       "roleTag": "BARCAN-TAG-02",
-      "jtbd": "When an operator monitors ongoing conversations, I want a unified chat interface with color-coded status markings and instant manual message capabilities, so that I can immediately take over control from the AI when human attention is required.",
-      "acceptanceCriteria": "Given a unified live chat panel, When an operator views active dialogues, Then they are displayed with appropriate color coding for their states, and sending a message manually halts future AI auto-responses for that dialogue.",
+      "jtbd": "When an operator monitors active outreach dialogues, I want a single unified chat interface with color-coded statuses, so that I can immediately take over control from the AI when manual response is needed.",
+      "acceptanceCriteria": "Given the Live Chat dashboard, When an operator sends a message manually to a dialogue, Then the system sends the message via Telegram and disables the AI auto-responder for that dialogue.",
       "reason": "literal brief requirement: Module 4 (Диалоговая Панель / Live Chat CRM) is completely missing from the task list."
     },
     {
-      "title": "Account Warming and Exponentially Distributed Timeouts",
+      "title": "Telegram Session Warming and Background Activity Simulation",
       "roleTag": "BARCAN-TAG-02",
-      "jtbd": "When operating a network of Telegram outreach accounts, I want to simulate background activity (e.g., channel subscriptions, reading posts) and apply exponentially distributed delay intervals, so that the risk of automated spam blocks is minimized.",
-      "acceptanceCriteria": "Given a Telegram account session, When background warming is active, Then it performs periodic automated actions and randomizes delays using an exponential distribution rather than fixed pauses.",
-      "reason": "literal brief requirement: Section 4 outlines Session Warmup and dynamic timeouts as critical anti-ban strategy features, which are not addressed by any task in the list."
+      "jtbd": "When managing a network of cold Telegram outreach accounts, I want the system to simulate background activity such as channel subscriptions and reading posts, so that the risk of automated spam blocks is minimized.",
+      "acceptanceCriteria": "Given a connected Telegram account session, When background warming is enabled, Then the system automatically schedules and performs periodic channel subscriptions and post reading to simulate human behavior.",
+      "reason": "literal brief requirement: Section 4 (Anti-Ban Strategy, item 1) explicitly specifies implementation of background activity warming, which is unaddressed in the current task list."
     },
     {
       "title": "Administrator Authentication and Session Management",
       "roleTag": "BARCAN-TAG-02",
-      "jtbd": "When an administrator accesses the self-hosted platform, I want to authenticate securely via a login screen, so that unauthorized external users cannot access or control the active Telegram sessions and campaign data.",
+      "jtbd": "When an administrator accesses the self-hosted platform, I want to authenticate securely via a login screen, so that unauthorized external users cannot access active Telegram sessions or control campaigns.",
       "acceptanceCriteria": "Given an unauthenticated request to the Svelte admin dashboard or Spring Boot API, When the request is made, Then it is redirected to a login page or returns an HTTP 401 Unauthorized, requiring valid administrator credentials to proceed.",
       "reason": "domain-standard expectation: A private self-hosted admin panel must have secure user authentication and session management to prevent unauthorized access, which is also implied by 'Spring Security' and the 'Users' table in the brief's conceptual DB schema."
     }
