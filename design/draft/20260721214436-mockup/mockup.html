@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Health Monitor - Account Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#271901",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "surface-bright": "#f7f9fb",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#565e74",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-primary-fixed": "#131b2e",
+                        "inverse-surface": "#2d3133",
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#505f76",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "outline-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-container": "#98805d",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "on-primary-container": "#7c839b",
+                        "primary-container": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#fcdeb5",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-on-surface": "#eff1f3",
+                        "outline": "#76777d",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-container": "#271901",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "tertiary": "#000000",
+                        "primary": "#000000",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-container": "#d0e1fb",
+                        "on-secondary-container": "#54647a",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ring-chart {
+            transform: rotate(-90deg);
+        }
+        .custom-shadow {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline fixed top-0 w-full z-50 flex items-center justify-between px-md h-16 w-full">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">Health Monitor</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex gap-md">
+<span class="text-on-surface-variant font-label-md text-label-md cursor-pointer hover:text-primary transition-colors">Resources</span>
+<span class="text-on-surface-variant font-label-md text-label-md cursor-pointer hover:text-primary transition-colors">Support</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior account manager in a clean enterprise setting. The lighting is soft and corporate, with a blurred modern office background. The subject is wearing a crisp white shirt, conveying trust and stability. The overall aesthetic is high-end and minimalist, following a clean light-mode palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJAa3ndRJvctkCgsJ_w0i0Cqj7Jway4AFuvDgcwHLN3x2m6lrSIpXgrEdaEsm6BUQpgJ9dOPBao7T9BmyaSb2R3RtvRC57_1Id_FettQ85uks7BvRzKmgBxQb-rypG-x1crg9nn7Q021A-LSZaZ0nYUqfhmlWauBcERGIwkpUj9_laHkAl3PqRjtkXkgLTCi5I1CMc8Lk7pic8EPYSkCOPMdJeRLQfjryE1saXJucpqGZlDB66XxxWi_THQJVFIq9ALhppjGpfAQg"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-24 px-gutter max-w-container-max mx-auto">
+<!-- Hero Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg mb-xl">
+<!-- Total Capacity Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg custom-shadow flex flex-col justify-between h-40">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Capacity</p>
+<h2 class="font-display-lg text-display-lg text-primary mt-sm">1.2 PB</h2>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-emerald-600 text-sm">trending_up</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">4% increase from last month</span>
+</div>
+</div>
+<!-- Active Accounts Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg custom-shadow flex flex-col justify-between h-40">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Accounts</p>
+<h2 class="font-display-lg text-display-lg text-primary mt-sm">2,842</h2>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">groups</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Global enterprise distribution</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Health Snapshot (Ring Chart) -->
+<div class="lg:col-span-5 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg custom-shadow flex flex-col items-center justify-center relative min-h-[400px]">
+<div class="absolute top-lg left-lg">
+<h3 class="font-title-md text-title-md text-primary">Health Snapshot</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Overall ecosystem status</p>
+</div>
+<div class="relative flex items-center justify-center w-64 h-64 mt-8">
+<!-- SVG Ring Chart -->
+<svg class="ring-chart w-full h-full" viewbox="0 0 100 100">
+<!-- Background Circle -->
+<circle class="text-surface-container" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="10"></circle>
+<!-- Healthy (85%) -->
+<circle class="text-emerald-500" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.32" stroke-dashoffset="37.7" stroke-linecap="round" stroke-width="10"></circle>
+<!-- At Risk (10%) - Calculated based on start/end but simplified for visual -->
+<circle class="text-amber-500" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="25.13 251.32" stroke-dashoffset="-213.62" stroke-linecap="round" stroke-width="10"></circle>
+<!-- Critical (5%) -->
+<circle class="text-error" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="12.56 251.32" stroke-dashoffset="-238.75" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute text-center">
+<span class="font-display-lg text-display-lg text-primary">85%</span>
+<p class="font-label-md text-label-md text-on-surface-variant">HEALTHY</p>
+</div>
+</div>
+<div class="mt-lg w-full flex justify-around">
+<div class="text-center">
+<div class="w-3 h-3 rounded-full bg-emerald-500 mx-auto mb-1"></div>
+<p class="font-label-md text-label-md">85% Healthy</p>
+</div>
+<div class="text-center">
+<div class="w-3 h-3 rounded-full bg-amber-500 mx-auto mb-1"></div>
+<p class="font-label-md text-label-md">10% Risk</p>
+</div>
+<div class="text-center">
+<div class="w-3 h-3 rounded-full bg-error mx-auto mb-1"></div>
+<p class="font-label-md text-label-md">5% Crit</p>
+</div>
+</div>
+</div>
+<!-- Recent Activity Feed -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg custom-shadow">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-title-md text-title-md text-primary">Recent Activity</h3>
+<button class="font-label-md text-label-md text-secondary hover:underline">View All</button>
+</div>
+<div class="space-y-md">
+<!-- Activity Item 1 -->
+<div class="flex items-center p-md hover:bg-surface-container-low transition-colors rounded-lg group">
+<div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center mr-md">
+<span class="material-symbols-outlined text-emerald-700" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Global Tech Solutions</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">System health restored to 100%</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">2m ago</span>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex items-center p-md hover:bg-surface-container-low transition-colors rounded-lg group">
+<div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-md">
+<span class="material-symbols-outlined text-amber-700" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Vertex Data Corp</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">High latency detected in West Region</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">14m ago</span>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex items-center p-md hover:bg-surface-container-low transition-colors rounded-lg group">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center mr-md">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">New Client Onboarding</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Indigo Dynamics added to Enterprise Tier</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">1h ago</span>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex items-center p-md hover:bg-surface-container-low transition-colors rounded-lg group">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center mr-md">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-semibold text-primary">Cloud Sync Fail</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Storage Node 4 requires manual reboot</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">3h ago</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB: Add New Account -->
+<button class="fixed right-lg bottom-24 lg:bottom-12 z-50 flex items-center gap-sm bg-primary text-on-primary px-lg py-md rounded-full custom-shadow hover:scale-105 active:scale-95 transition-transform duration-200 shadow-xl">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-md text-label-md uppercase tracking-widest font-bold">Add New Account</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm pb-safe bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 transition-transform active:scale-90">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-md text-label-md">Add</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">monitor_heart</span>
+<span class="font-label-md text-label-md">Health</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for the FAB and list items
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const icon = item.querySelector('.material-symbols-outlined');
+                if (icon) icon.style.transition = 'transform 0.2s ease';
+                if (icon) icon.style.transform = 'scale(1.1)';
+            });
+            item.addEventListener('mouseleave', () => {
+                const icon = item.querySelector('.material-symbols-outlined');
+                if (icon) icon.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>
