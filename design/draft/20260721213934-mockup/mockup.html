@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CRM Chat Intercept</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#d2e4fb",
+                        "surface-variant": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-tint": "#4f6073",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "outline-variant": "#c4c6cd",
+                        "primary-container": "#1a2b3c",
+                        "outline": "#74777d",
+                        "on-primary-fixed": "#0b1d2d",
+                        "on-secondary-container": "#00714d",
+                        "on-surface-variant": "#44474c",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#041627",
+                        "secondary": "#006c49",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-container": "#6cf8bb",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-surface": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#3e2400",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container-high": "#dce9ff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ca8100",
+                        "on-primary-fixed-variant": "#38485a",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary": "#221200",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b7c8de",
+                        "inverse-surface": "#213145",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-primary": "#b7c8de"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-gap": "0.75rem",
+                        "list-item-padding": "12px 16px",
+                        "inline-gap": "0.5rem",
+                        "touch-target-min": "44px",
+                        "container-margin": "1rem"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-pill { background-color: #041627; color: white; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 z-40 border-b border-outline-variant flex justify-between items-center w-full px-container-margin h-touch-target-min fixed top-0">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate operator in a high-tech office environment. The person is smiling warmly, wearing a crisp white shirt and a sleek modern headset. The background shows soft-focus office lights in a cool-toned professional CRM dashboard interface setting. The lighting is bright, clean, and optimistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnlZrUh0rk2QRnhr0Piw_K8xQPs3HXMrZpyV42QtKjp8qhwHhKMk0-JWYyS_BjUbnrq_nO2uk4lkmRuFzYCuuacObUyWqrtjpQe4ikNqf4fuWaNLp4gfN8aGrEHo89SvHcAAsl0CPYI3AzLegQFiEBdP1B8DoL28Em8qRkyxtXbzQNnZq8wNvmUmiIzYqurlwyg3LqU3iTjYdBpaG8xp_ilS8Re4_vt_K_b6hMpgGseQh0ZZ9wVadZ3EWR1F7IJK5KB-wujdGzv8c"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">CRM Chat</h1>
+</div>
+<button class="flex items-center justify-center w-10 h-10 transition-colors duration-200 ease-in-out hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+</header>
+<main class="flex-1 mt-[44px] mb-[64px] pb-6">
+<!-- Lead Priority Filter Bar -->
+<section class="bg-white px-container-margin py-3 sticky top-[44px] z-30 border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar">
+<button class="px-4 py-1.5 rounded-full font-label-md text-label-md active-pill transition-all duration-200 border border-primary">All</button>
+<button class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 border border-outline-variant">Qualified</button>
+<button class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 border border-outline-variant">At-Risk</button>
+<button class="px-4 py-1.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 border border-outline-variant">New</button>
+</div>
+</section>
+<!-- KPI Summary (High-Density Intercept Style) -->
+<div class="px-container-margin py-4 grid grid-cols-2 gap-3">
+<div class="bg-white p-3 rounded-xl border border-outline-variant flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avg Response</span>
+<span class="font-headline-md text-headline-md text-primary">1m 42s</span>
+</div>
+<div class="bg-white p-3 rounded-xl border border-outline-variant flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Threads</span>
+<span class="font-headline-md text-headline-md text-secondary">14</span>
+</div>
+</div>
+<!-- Chat List -->
+<section class="px-container-margin space-y-2">
+<!-- Thread Item: Sarah Chen -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 flex gap-3 items-start transition-all duration-150 active:scale-[0.98] cursor-pointer">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="A portrait of Sarah Chen, a professional businesswoman with a friendly expression. She is set against a clean, minimal architectural background with soft natural lighting. The image maintains a sophisticated corporate aesthetic with neutral tones and a hint of vibrant professional green in her accessories, matching a high-end CRM design language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRKPkVu53PcTWSGKzZ7S45mYyNFZmurGwB-pD19eb7VhAECTXjnRkB9MPCtpv_PfiPTzsYIaj5N5o_gNwm27W0id-x6IrQlyfQc6J6MoQvBxvj9cQoiUPheLrQZl0bFhfaA-zevzT0dAj5_ztUgNUQ2O1sd0liDDvwo9dlClybg0Q4bILByEjmf96tAwQfNrnhhPC8WdLw6y6_3_w8BGY_SJfjcLu5xpZiokF0jj0Gf0PEnVDj-W9P5D-hYPVD4gWxJua93BLK120"/>
+</div>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Sarah Chen</h3>
+<span class="font-label-bold text-label-bold bg-green-100 text-green-800 px-2 py-0.5 rounded">Qualified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-2 leading-tight">"Can you send over the pricing for the Enterprise plan? We need it by EOD."</p>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="font-label-bold text-label-bold countdown" data-seconds="142">02:22 remaining</span>
+</div>
+<span class="text-outline-variant text-[12px]">•</span>
+<span class="font-label-sm text-label-sm text-outline">Just now</span>
+</div>
+</div>
+</div>
+<!-- Thread Item: Marcus Wright -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 flex gap-3 items-start transition-all duration-150 active:scale-[0.98] cursor-pointer">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of Marcus Wright, a tech-focused executive with a focused and intelligent gaze. The background is a modern office workspace with blurred digital displays. The lighting is professional and sharp, emphasizing clarity and reliability in a corporate enterprise software context. Tones are primarily cool blues and deep grays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVsRj-l1wlPvMYnxVMDI4h04r5-LmdaL31g1Z3GTaxH1ue2URTIrvcTDmW_W_AwxKIEX06W-orxmuXbuYsmyzwLw5q4KVL6JdY3I10_utsu7EY-bIRlDFM39mcE8SX-QXfe-il3QigAMLZUq_unkX5Jg8YxOehn9pULEtmfoLy4ZnsQd-IVicFwysrIWduFhwN7esqQsda5n9jpxib_oMu1RfPZKwBRYSElT7SY38dMg_GR8-oRuEphAZtqhK_oX-LbXHv80-NzJE"/>
+</div>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-amber-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Marcus Wright</h3>
+<span class="font-label-bold text-label-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Pending</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-2 leading-tight">"Is the API documentation available for the new sync module?"</p>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="font-label-bold text-label-bold countdown" data-seconds="285">04:45 remaining</span>
+</div>
+<span class="text-outline-variant text-[12px]">•</span>
+<span class="font-label-sm text-label-sm text-outline">3m ago</span>
+</div>
+</div>
+</div>
+<!-- Thread Item: Elena Rodriguez -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 flex gap-3 items-start transition-all duration-150 active:scale-[0.98] cursor-pointer">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="A portrait of Elena Rodriguez, a young creative professional with a confident smile. She is in a brightly lit studio environment with soft shadows. The overall aesthetic is clean, modern, and trustworthy. Colors are dominated by bright whites and professional navy accents, consistent with a premium mobile CRM application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRtCWll_E_v7NsPKepI7igTLrgzzYztxA51MVxqY1t0jf8sC5EtXDrffRchpUIujpxkTqOg55Sn9XXwT-a0eBC4u918h9AFNOL_nPtzEsM9De8PrmfoMoAnixYsGrYslcE_2qQRHF70jtnbX--IfZCirW2AhgMK_72xiM3KoGoWWOJuVObJoUdtxNqLRZaMYcIDVJ-RFp--2TqUQeNqMaBZYppWPAabF47pJU0bSyMY3mA8cNMHe0lEwa7VDyhrj-kRvMkCiyoeoM"/>
+</div>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-blue-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Elena Rodriguez</h3>
+<span class="font-label-bold text-label-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">New</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-2 leading-tight">"Hi! I'm interested in booking a demo for my team next week."</p>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 text-error animate-pulse">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="font-label-bold text-label-bold countdown" data-seconds="45">00:45 remaining</span>
+</div>
+<span class="text-outline-variant text-[12px]">•</span>
+<span class="font-label-sm text-label-sm text-outline">Just now</span>
+</div>
+</div>
+</div>
+<!-- Thread Item: David Kim -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 flex gap-3 items-start opacity-75 grayscale-[0.2] transition-all duration-150 active:scale-[0.98] cursor-pointer">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of David Kim, an account manager with a calm and reliable expression. The setting is a minimalist office with glass partitions. The lighting is soft and even, highlighting a high-performance business environment. The style is modern corporate, emphasizing data-driven precision and professional excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUJmn64Bg1tWhF6B96ZzDQzHY-QAUHqV7W6hiJf95CLVCbutJCeR1hInp31pREWATRtGxuJrxFUZZFaDj9GYB3MvANs3qwUMWVLbRA0YDBVdMZeS5o2vwkRWUj94ibGSOJ7yfMZ7Lb7sUhe91IoNF3S9Wr7_7aEZWuPCMdgFTBntkmrpHlXusr_J6KaJkEMr6m_SWL1SH2jiUfYNkQ0eSnQqXAn5YSjIhKuEn0b8uwsQ4pNbqTp6Ew6Ai48eONOguApIakdhkg_GU"/>
+</div>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-slate-300 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">David Kim</h3>
+<span class="font-label-bold text-label-bold bg-slate-100 text-slate-800 px-2 py-0.5 rounded">Qualified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-2 leading-tight">"Thanks for the follow-up. Let's schedule a call for Monday morning."</p>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-outline">Resolved 10m ago</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 border-t border-outline-variant bg-surface flex justify-around items-center py-2 h-[64px]">
+<button class="flex flex-col items-center justify-center text-secondary font-label-bold transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-sm text-label-sm">Chats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Leads</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</button>
+</nav>
+<script>
+        // Simple Countdown Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const timers = document.querySelectorAll('.countdown');
+            
+            timers.forEach(timer => {
+                let seconds = parseInt(timer.getAttribute('data-seconds'));
+                
+                const updateDisplay = () => {
+                    if (seconds <= 0) {
+                        timer.innerText = "OVERDUE";
+                        timer.parentElement.classList.add('animate-bounce');
+                        return;
+                    }
+                    
+                    const min = Math.floor(seconds / 60);
+                    const sec = seconds % 60;
+                    timer.innerText = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')} remaining`;
+                };
+
+                const interval = setInterval(() => {
+                    seconds--;
+                    updateDisplay();
+                    if (seconds <= 0) clearInterval(interval);
+                }, 1000);
+
+                updateDisplay();
+            });
+        });
+
+        // Pull-to-refresh microinteraction placeholder
+        let startY = 0;
+        document.addEventListener('touchstart', e => startY = e.touches[0].pageY);
+        document.addEventListener('touchmove', e => {
+            const y = e.touches[0].pageY;
+            if (window.scrollY === 0 && y > startY + 10) {
+                // Potential pull to refresh visual trigger
+            }
+        });
+    </script>
+</body></html>
