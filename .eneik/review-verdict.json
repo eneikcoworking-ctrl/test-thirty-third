@@ -2,8 +2,8 @@
   "verdicts": [
     {
       "sourceIndex": 0,
-      "verdict": "approve",
-      "criticalReason": "",
+      "verdict": "block",
+      "criticalReason": "The PR commits a forbidden binary file ('frontend/src/assets/hero.png', which violates the constraint against committing .zip/.png/.webm/.trace files), and it deletes the entire API specification file 'docs/openapi.yaml', posing a severe data loss risk and violating the repository's strict contract-first backend design principles.",
       "concerns": [
         "Pagination parameters are missing on the GET /campaigns endpoint; listing campaigns could degrade performance under high volumes.",
         "The spintaxTemplate field on CampaignCreateRequest lacks specific regex/pattern validation, which might result in malformed spintax templates being accepted.",
