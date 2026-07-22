@@ -25,13 +25,23 @@ public class CampaignService {
                 if (trimmed.isEmpty()) continue;
 
                 Contact contact = new Contact();
-                if (trimmed.startsWith("@")) {
-                    contact.setUsername(trimmed);
-                } else if (trimmed.matches("^\\+?[0-9]{10,15}$")) {
-                    contact.setPhoneNumber(trimmed);
-                } else {
-                    contact.setUsername(trimmed);
+
+                // 1. Normalize and validate phone number (handling spaces, hyphens, dots, parens)
+                String normalizedPhone = trimmed.replaceAll("[\\s\\-\\(\\)\\.]", "");
+                if (normalizedPhone.matches("^\\+?[0-9]{10,15}$")) {
+                    contact.setPhoneNumber(normalizedPhone);
                 }
+                // 2. Validate Telegram username format (starts with optional @, 5-32 characters, alphanumeric and underscore)
+                else if (trimmed.matches("^@?[a-zA-Z0-9_]{5,32}$")) {
+                    // Auto-prepend '@' to normalize unmatched usernames
+                    String username = trimmed.startsWith("@") ? trimmed : "@" + trimmed;
+                    contact.setUsername(username);
+                }
+                // 3. Otherwise, throw a clear validation exception for bad records
+                else {
+                    throw new IllegalArgumentException("Invalid contact format. Must be a valid phone number or username: " + trimmed);
+                }
+
                 contact.setStatus("PENDING");
                 campaign.addContact(contact);
             }

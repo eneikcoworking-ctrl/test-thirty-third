@@ -68,6 +68,42 @@ public class CampaignAndMessagePersistenceTest {
                 .orElse(null);
         assertThat(contact2).isNotNull();
         assertThat(contact2.getCampaign().getId()).isEqualTo(campaign.getId());
+
+        Contact contact3 = retrieved.getContacts().stream()
+                .filter(c -> "@invalid_format_default_username".equals(c.getUsername()))
+                .findFirst()
+                .orElse(null);
+        assertThat(contact3).isNotNull();
+        assertThat(contact3.getCampaign().getId()).isEqualTo(campaign.getId());
+    }
+
+    @Test
+    @Transactional
+    public void testCreateCampaignWithNormalizedPhoneNumbers() {
+        Campaign campaign = campaignService.createCampaign(
+                "Phone Normalization Test",
+                "Hello",
+                List.of("+1 (234) 567-8901", " +1-234-567-8902  ", "+1.234.567.8903")
+        );
+
+        List<Contact> contacts = campaignService.getCampaign(campaign.getId()).getContacts();
+        assertThat(contacts).hasSize(3);
+
+        assertThat(contacts).anySatisfy(c -> assertThat(c.getPhoneNumber()).isEqualTo("+12345678901"));
+        assertThat(contacts).anySatisfy(c -> assertThat(c.getPhoneNumber()).isEqualTo("+12345678902"));
+        assertThat(contacts).anySatisfy(c -> assertThat(c.getPhoneNumber()).isEqualTo("+12345678903"));
+    }
+
+    @Test
+    @Transactional
+    public void testCreateCampaignWithInvalidContactFormatThrowsException() {
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            campaignService.createCampaign(
+                    "Invalid Contact Test",
+                    "Hello",
+                    List.of("too_shrt", "contains spaces", "invalid_char_!")
+            );
+        });
     }
 
     @Test
