@@ -197,6 +197,41 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
+  /campaigns/{id}/execute:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The campaign ID to execute/orchestrate
+        schema:
+          type: integer
+          format: int64
+    post:
+      summary: Execute campaign outreach
+      description: |
+        Processes spintax templates and triggers message dispatch for pending contacts,
+        automatically rotating accounts upon hitting flood limits.
+      operationId: executeCampaign
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignExecuteRequest'
+      responses:
+        '200':
+          description: Campaign processed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignExecuteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
 components:
   schemas:
     CampaignSummary:
@@ -528,6 +563,47 @@ components:
       required:
         - field
         - message
+
+    CampaignExecuteRequest:
+      type: object
+      properties:
+        accountIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1, 2, 3]
+          description: List of Telegram Account IDs to use and rotate during campaign execution.
+      required:
+        - accountIds
+
+    CampaignExecuteResponse:
+      type: object
+      properties:
+        campaignId:
+          type: integer
+          format: int64
+          example: 12
+        status:
+          type: string
+          example: "COMPLETED"
+        messagesSent:
+          type: integer
+          example: 10
+        rotationsCount:
+          type: integer
+          example: 1
+        logs:
+          type: array
+          items:
+            type: string
+          example: ["Dispatched using account 1", "Account 1 hit FLOOD_WAIT, rotating to account 2"]
+      required:
+        - campaignId
+        - status
+        - messagesSent
+        - rotationsCount
+        - logs
 
   responses:
     BadRequest:
