@@ -42,4 +42,24 @@ public class CampaignService {
     public Campaign getCampaign(Long id) {
         return campaignRepository.findById(id).orElse(null);
     }
+
+    public List<Campaign> getAllCampaigns() {
+        return campaignRepository.findAll();
+    }
+
+    @Transactional
+    public Campaign updateCampaign(Long id, String name, String spintaxTemplate) {
+        Campaign campaign = campaignRepository.findById(id).orElse(null);
+        if (campaign != null) {
+            campaign.setName(name);
+            campaign.setSpintaxTemplate(spintaxTemplate);
+            return campaignRepository.save(campaign);
+        }
+        return null;
+    }
+
+    @Transactional
+    public void deleteCampaign(Long id) {
+        campaignRepository.deleteById(id);
+    }
 }
