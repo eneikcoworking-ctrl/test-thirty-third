@@ -3,7 +3,7 @@
 * **Status:** Accepted
 * **Role:** BARCAN-TAG-09 (Delivery Management / Technical Lead)
 * **Deciders:** BARCAN-TAG-09
-* **Next Owner Role:** BARCAN-TAG-02 (Backend API for Session Manager)
+* **Next Owner Role:** BARCAN-TAG-08 (Database/Data Engineer)
 
 ---
 
@@ -63,7 +63,23 @@ Under the chosen **Option B**, every account session is treated as an isolated c
 
 ---
 
-## 5. Architectural Decision
+## 5. Required Runtime Dependencies & Deployment Evaluation
+
+To support Option B (External Python/Node.js Bridge) in production and development, the following runtime dependencies and deployment configurations are defined:
+
+1. **Runtime Interpreters**:
+   - **Python 3.11+** or **Node.js 20 LTS** as the runtime execution environment for the external bridge service.
+2. **Core Telegram & Proxy Libraries**:
+   - **Pyrogram 2.0+** or **GramJS 2.0+** to implement the MTProto protocol interface.
+   - **PySocks** (for Python) or **socks-proxy-agent** (for Node.js) to manage socket-level SOCKS5/HTTP proxies without system-wide routing changes.
+3. **Integration Protocol**:
+   - **gRPC** (via standard protobuf definitions) or **REST API** (using JSON payloads over HTTP/2 or HTTP/1.1) to bridge the Spring Boot backend and the external client service.
+4. **Proxy Networking Rule (Zero Leakage)**:
+   - Dynamic proxy binding at the socket layer per-session initialization. The MTProto client is configured with a **fail-closed** policy, ensuring that if a proxy fails, all traffic halts and throws a connection exception immediately, with absolutely no fallback to the host machine's public IP address.
+
+---
+
+## 6. Architectural Decision
 
 We will implement **Option B: Node.js/Python Bridge (specifically Python with Pyrogram/Telethon or Node with GramJS via gRPC/REST)**.
 
@@ -74,11 +90,11 @@ We will implement **Option B: Node.js/Python Bridge (specifically Python with Py
 
 ---
 
-## 6. Handoff Note
+## 7. Handoff Note
 
 * **Current Status:** Completed Core Architecture Spike (BARCAN-TAG-09).
-* **Next Owner Role:** `BARCAN-TAG-02` (Backend API for Session Manager).
+* **Next Owner Role:** `BARCAN-TAG-08` (Database/Data Engineer).
 * **Next Step Scope:**
-  1. Define the persistence layer for tracking account session status, proxy associations, and credential paths.
-  2. Implement the backend endpoints to handle OTP generation/submission, utilizing the chosen Bridge architecture.
+  1. Define the persistence layer (Database Schema) for tracking account session status, proxy associations, and credential paths to store Telegram accounts, campaign configurations, contact lists, and status history logs.
+  2. Implement the migration scripts (`V2__campaign_and_contacts.sql` or equivalent) to establish proper database mappings and constraints ensuring one proxy is uniquely assigned to one account.
   3. No additional implementation scope or adjacent slices are scheduled for this phase to preserve strict Lean focus.

@@ -43,7 +43,7 @@ This approach isolates the Telegram API client logic in a lightweight external s
 - **Resilience and Isolation**: A crash, memory leak, or rate-limiting block in a Telegram session process is isolated. The main Spring Boot backend remains fully operational, guaranteeing core system uptime.
 - **Native Per-Session Proxy Isolation**: High-level libraries (e.g., Pyrogram and GramJS) provide first-class, built-in support for injecting custom proxy configurations (host, port, username, password) directly upon initializing each connection client.
 - **Anti-Ban Abstractions**: Out-of-the-box API functions to trigger typing state, change profiles, and natively handle complex flood wait behaviors (such as `FLOOD_WAIT` or `PEER_FLOOD`).
-- **Lean Tooling**: Substantially lower build pipeline and developer setup complexity.
+- **Keep-Alive and Lean Tooling**: Substantially lower build pipeline and developer setup complexity.
 
 #### Weaknesses
 - **Operational Overhead**: Requires orchestrating and monitoring an additional runtime container/service alongside Spring Boot.
@@ -61,7 +61,23 @@ Applying our core architectural and product principles:
 
 ---
 
-## 4. Final Decision
+## 4. Required Runtime Dependencies & Deployment Evaluation
+
+To support Option B (External Python/Node.js Bridge) in production and development, the following runtime dependencies and deployment configurations are defined:
+
+1. **Runtime Interpreters**:
+   - **Python 3.11+** or **Node.js 20 LTS** as the runtime execution environment for the external bridge service.
+2. **Core Telegram & Proxy Libraries**:
+   - **Pyrogram 2.0+** or **GramJS 2.0+** to implement the MTProto protocol interface.
+   - **PySocks** (for Python) or **socks-proxy-agent** (for Node.js) to manage socket-level SOCKS5/HTTP proxies without system-wide routing changes.
+3. **Integration Protocol**:
+   - **gRPC** (via standard protobuf definitions) or **REST API** (using JSON payloads over HTTP/2 or HTTP/1.1) to bridge the Spring Boot backend and the external client service.
+4. **Proxy Networking Rule (Zero Leakage)**:
+   - Dynamic proxy binding at the socket layer per-session initialization. The MTProto client is configured with a **fail-closed** policy, ensuring that if a proxy fails, all traffic halts and throws a connection exception immediately, with absolutely no fallback to the host machine's public IP address.
+
+---
+
+## 5. Final Decision
 
 Based on the evaluation, the system will implement **Option B: Node.js/Python Bridge (via REST / gRPC)** as the core Telegram client architecture.
 
@@ -71,9 +87,9 @@ This decision directly ensures:
 
 ---
 
-## 5. Concise Handoff Note & Next Steps
+## 6. Concise Handoff Note & Next Steps
 
 This delivery decision completes the **Telegram Client Core Architecture Spike** (BARCAN-TAG-09). No implementation scope expansion is introduced.
 
 - **Next Owner Role**: `BARCAN-TAG-08 - Database/Data Engineer`
-- **Immediate Task**: Implement the Database Schema and migration scripts (`V2__campaign_and_contacts.sql` or equivalent) to store Telegram accounts, campaign configurations, contact lists, and status history logs, establishing correct database mappings.
+- **Immediate Task**: Implement the Database Schema and migration scripts to store Telegram accounts, campaign configurations, contact lists, and status history logs, establishing correct database mappings (specifically the accounts and proxies schema as outlined in the Eneik task plan).
