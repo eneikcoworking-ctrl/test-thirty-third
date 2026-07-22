@@ -72,5 +72,5 @@ This decision strictly supports:
 
 This delivery decision has been completed by the Systems Analyst / Technical Lead. No implementation scope expansion is introduced; this spike focuses strictly on the AI Integration Strategy.
 
-- **Next Owner Role**: `BARCAN-TAG-01 - Backend Developer`
+- **Next Owner Role**: `BARCAN-TAG-02 - Backend Developer`
 - **Immediate Task**: Configure the Maven dependencies for Spring AI in the backend module, implement a prototype of `LLMDialogEngine` utilizing `SystemPromptTemplate` and `BeanOutputConverter`, and verify structured intent output.
