@@ -27,6 +27,9 @@ public class LeadGenApplicationTests {
     @Autowired
     private ActiveDialogSummaryRepository activeDialogSummaryRepository;
 
+    @Autowired
+    private jakarta.persistence.EntityManager entityManager;
+
     private TelegramAccount testAccount;
 
     @BeforeEach
@@ -159,5 +162,72 @@ public class LeadGenApplicationTests {
         List<ActiveDialogSummary> qualifiedSummaries = activeDialogSummaryRepository.findByStatus("QUALIFIED");
         assertThat(qualifiedSummaries).hasSize(1);
         assertThat(qualifiedSummaries.get(0).getDialogId()).isEqualTo(savedDialog1.getId());
+    }
+
+    @Test
+    public void testActiveDialogsByStatusGroupedSummaryView() throws Exception {
+        // Create 2 Active QUALIFIED dialogs, 1 Active PENDING dialog
+        Dialog dialog1 = new Dialog();
+        dialog1.setTelegramAccount(testAccount);
+        dialog1.setPeerId("peer_a");
+        dialog1.setPeerUsername("lead_a");
+        dialog1.setStatus("QUALIFIED");
+        dialog1.setIsActive(true);
+        dialog1 = dialogRepository.save(dialog1);
+
+        Dialog dialog2 = new Dialog();
+        dialog2.setTelegramAccount(testAccount);
+        dialog2.setPeerId("peer_b");
+        dialog2.setPeerUsername("lead_b");
+        dialog2.setStatus("QUALIFIED");
+        dialog2.setIsActive(true);
+        dialog2 = dialogRepository.save(dialog2);
+
+        Dialog dialog3 = new Dialog();
+        dialog3.setTelegramAccount(testAccount);
+        dialog3.setPeerId("peer_c");
+        dialog3.setPeerUsername("lead_c");
+        dialog3.setStatus("PENDING");
+        dialog3.setIsActive(true);
+        dialog3 = dialogRepository.save(dialog3);
+
+        // Add 3 unread messages to dialog1, 1 unread to dialog2, 0 unread to dialog3
+        for (int i = 0; i < 3; i++) {
+            Message m = new Message();
+            m.setDialog(dialog1);
+            m.setSenderId("peer_a");
+            m.setIsFromMe(false);
+            m.setIsUnread(true);
+            m.setText("Unread msg " + i);
+            messageRepository.save(m);
+        }
+
+        Message m2 = new Message();
+        m2.setDialog(dialog2);
+        m2.setSenderId("peer_b");
+        m2.setIsFromMe(false);
+        m2.setIsUnread(true);
+        m2.setText("Unread msg dialog 2");
+        messageRepository.save(m2);
+
+        // Query the v_active_dialogs_by_status view
+        List<Object[]> results = entityManager.createNativeQuery(
+                "SELECT status, dialog_count, total_unread_count FROM v_active_dialogs_by_status ORDER BY status"
+        ).getResultList();
+
+        assertThat(results).hasSize(2);
+
+        // Verify PENDING row
+        Object[] pendingRow = results.get(0);
+        assertThat(pendingRow[0]).isEqualTo("PENDING");
+        assertThat(((Number) pendingRow[1]).intValue()).isEqualTo(1);
+        assertThat(((Number) pendingRow[2]).intValue()).isEqualTo(0);
+
+        // Verify QUALIFIED row
+        Object[] qualifiedRow = results.get(1);
+        assertThat(qualifiedRow[0]).isEqualTo("QUALIFIED");
+        assertThat(((Number) qualifiedRow[1]).intValue()).isEqualTo(2);
+        // dialog1 (3 unread) + dialog2 (1 unread) = 4
+        assertThat(((Number) qualifiedRow[2]).intValue()).isEqualTo(4);
     }
 }
