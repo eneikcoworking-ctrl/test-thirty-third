@@ -5,11 +5,7 @@
       "verdict": "approve",
       "criticalReason": "",
       "concerns": [
-        "The backend repository targets Java 21, but pom.xml is configured with <java.version>17</java.version>. This might cause a mismatch or compiler release failures in the CI pipeline.",
-        "The Flyway rollback script (U1__create_schema.sql) is placed under 'src/main/resources/db/rollback/' instead of 'src/main/resources/db/migration/' with the up script as required by project conventions.",
-        "The H2 database dependency scope in pom.xml was changed to 'runtime' from the standard 'test' scope.",
-        "In CampaignService, contact validation falls back to treating any unmatched string formats as usernames rather than throwing a validation exception or reporting bad records.",
-        "In CampaignService, the phone number validation regex '^\\+?[0-9]{10,15}$' could be restrictive and does not handle spaces, hyphens, or other common formatting marks."
+        "Renaming Flyway migration files after deployment may cause validation checksum mismatches in existing environments."
       ]
     }
   ]
