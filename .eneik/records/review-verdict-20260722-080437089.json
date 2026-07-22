@@ -1,0 +1,14 @@
+{
+  "verdicts": [
+    {
+      "sourceIndex": 0,
+      "verdict": "approve",
+      "criticalReason": "",
+      "concerns": [
+        "Pagination parameters are missing on the GET /campaigns endpoint; listing campaigns could degrade performance under high volumes.",
+        "The spintaxTemplate field on CampaignCreateRequest lacks specific regex/pattern validation, which might result in malformed spintax templates being accepted.",
+        "Error response schema is generic; it would be beneficial to define custom domain-specific error codes for different Telegram-related validation failures (e.g., specific flood control limit errors)."
+      ]
+    }
+  ]
+}
