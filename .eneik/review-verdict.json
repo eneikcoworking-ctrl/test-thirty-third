@@ -5,9 +5,8 @@
       "verdict": "approve",
       "criticalReason": "",
       "concerns": [
-        "Pagination parameters are missing on the GET /campaigns endpoint; listing campaigns could degrade performance under high volumes.",
-        "The spintaxTemplate field on CampaignCreateRequest lacks specific regex/pattern validation, which might result in malformed spintax templates being accepted.",
-        "Error response schema is generic; it would be beneficial to define custom domain-specific error codes for different Telegram-related validation failures (e.g., specific flood control limit errors)."
+        "In CampaignAndMessagePersistenceTest, the assertion expects contact3.getUsername() to be '@invalid_format_default_username' which was normalized from 'invalid_format_default_username'. While valid, username validation and auto-prepending logic should have clear schema/length/char bounds validation on the REST/DTO layer before persistence.",
+        "The CampaignService.createCampaign does not perform transaction boundary validation within the list loop if any subsequent validation fails; though it is annotated with @Transactional at the service/test layer, any programmatic batching might need careful partial error handling or bulk insert optimization."
       ]
     }
   ]
