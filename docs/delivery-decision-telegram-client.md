@@ -92,4 +92,4 @@ This decision directly ensures:
 This delivery decision completes the **Telegram Client Core Architecture Spike** (BARCAN-TAG-09). No implementation scope expansion is introduced.
 
 - **Next Owner Role**: `BARCAN-TAG-08 - Database/Data Engineer`
-- **Immediate Task**: Implement the Database Schema and migration scripts to store Telegram accounts, campaign configurations, contact lists, and status history logs, establishing correct database mappings (specifically the accounts and proxies schema as outlined in the Eneik task plan).
+- **Immediate Task**: Define the database schema and migration scripts for storing Telegram accounts, proxies, and session statuses, enforcing referential integrity and constraints (e.g., that one proxy is uniquely assigned to one account).

@@ -95,6 +95,6 @@ We will implement **Option B: Node.js/Python Bridge (specifically Python with Py
 * **Current Status:** Completed Core Architecture Spike (BARCAN-TAG-09).
 * **Next Owner Role:** `BARCAN-TAG-08` (Database/Data Engineer).
 * **Next Step Scope:**
-  1. Define the persistence layer (Database Schema) for tracking account session status, proxy associations, and credential paths to store Telegram accounts, campaign configurations, contact lists, and status history logs.
-  2. Implement the migration scripts (`V2__campaign_and_contacts.sql` or equivalent) to establish proper database mappings and constraints ensuring one proxy is uniquely assigned to one account.
+  1. Define the persistence layer (Database Schema) for tracking account session status, proxy associations, and credential paths to store Telegram accounts, proxies, and session status.
+  2. Implement the migration scripts (`V2__accounts_and_proxies.sql` or equivalent) to establish proper database mappings and constraints ensuring one proxy is uniquely assigned to one account.
   3. No additional implementation scope or adjacent slices are scheduled for this phase to preserve strict Lean focus.
