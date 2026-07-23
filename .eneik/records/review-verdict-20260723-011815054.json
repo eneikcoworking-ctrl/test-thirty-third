@@ -1,0 +1,4 @@
+{"verdicts": [
+  {"sourceIndex": 0, "verdict": "block", "criticalReason": "Direct contradiction of DoD: introduces implementation scope expansion by adding Campaign Manager and contact lists schema requirements to the next step handoff.", "concerns": []},
+  {"sourceIndex": 1, "verdict": "approve", "criticalReason": "", "concerns": []}
+]}
