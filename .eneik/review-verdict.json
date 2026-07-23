@@ -5,9 +5,11 @@
       "verdict": "approve",
       "criticalReason": "",
       "concerns": [
-        "Pagination parameters are missing on the GET /campaigns endpoint; listing campaigns could degrade performance under high volumes.",
-        "The spintaxTemplate field on CampaignCreateRequest lacks specific regex/pattern validation, which might result in malformed spintax templates being accepted.",
-        "Error response schema is generic; it would be beneficial to define custom domain-specific error codes for different Telegram-related validation failures (e.g., specific flood control limit errors)."
+        "The backend repository targets Java 21, but pom.xml is configured with <java.version>17</java.version>. This might cause a mismatch or compiler release failures in the CI pipeline.",
+        "The Flyway rollback script (U1__create_schema.sql) is placed under 'src/main/resources/db/rollback/' instead of 'src/main/resources/db/migration/' with the up script as required by project conventions.",
+        "The H2 database dependency scope in pom.xml was changed to 'runtime' from the standard 'test' scope.",
+        "In CampaignService, contact validation falls back to treating any unmatched string formats as usernames rather than throwing a validation exception or reporting bad records.",
+        "In CampaignService, the phone number validation regex '^\\+?[0-9]{10,15}$' could be restrictive and does not handle spaces, hyphens, or other common formatting marks."
       ]
     }
   ]
